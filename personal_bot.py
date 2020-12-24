@@ -132,12 +132,18 @@ class BashCommandHandler(PersonalTelBot):
             self.sendMessage(chat_id, 'Command parsing error')
 
 
+# bash_handler = BashCommandHandler(
+#     api_token='HERE API TOKEN from @botfather @BotFather',
+#     password='Your device password',
+#     whitelist='path to whitelisted chat_id telegram accounts, you dont need to create, it will be created '
+#               'on first run and then will be appended on every login'
+# )
+
 bash_handler = BashCommandHandler(
     api_token='1470811324:AAGwv7*******yeikcHqlqbbI',
     password='*******',
     whitelist='/home/jafar/PycharmProjects/Personal-Telegram-Bot/whitelist'
 )
-
 last_date_path = '/home/jafar/PycharmProjects/Personal-Telegram-Bot/last_date'
 
 
