@@ -51,7 +51,7 @@ class BashCommandHandler(PersonalTelBot):
                 if chat_id in ids:
                     return 'Already logged in'
                 f = open(self.whitelist, 'a')
-                f.write(str(chat_id))
+                f.write('\n' +str(chat_id))
                 f.close()
                 return 'Right password, delete message from your end'
         f = open(self.whitelist, 'r')
@@ -110,7 +110,7 @@ class BashCommandHandler(PersonalTelBot):
         print('Running command')
         bash_command = ' '.join(tokens)
         if tokens[0] == 'sudo':
-            bash_command = f'echo {self.password} ' + bash_command
+            bash_command = f'echo {self.password} | ' + bash_command
 
         p = subprocess.Popen(bash_command, shell=True,stdout=subprocess.PIPE,stdin=subprocess.PIPE)
         # print(list(p.stdout))
@@ -138,8 +138,8 @@ class BashCommandHandler(PersonalTelBot):
 # )
 
 bash_handler = BashCommandHandler(
-    api_token='147****24:AAGwv7q*******VRyeikcHqlqbbI',
-    password='**********',
+    api_token='1470811324:AAGwv7*******yeikcHqlqbbI',
+    password='*******',
     whitelist='/home/jafar/PycharmProjects/Personal-Telegram-Bot/whitelist'
 )
 
@@ -172,7 +172,8 @@ if __name__ == '__main__':
             else:
                 wait_time = min(wait_time+0.5, 120)
             for message_ in messages:
-
+                if 'message' not in message_:
+                    continue
                 message = message_['message']
                 chat_id = message['from']['id']
 
