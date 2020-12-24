@@ -38,7 +38,6 @@ class BashCommandHandler(PersonalTelBot):
         tokens[0] = command
         print('Tokens are\n', tokens)
 
-
         if command == 'jlogin':
             print('Login attempt')
             print(' '.join(tokens), 'vs', self.password)
@@ -51,11 +50,12 @@ class BashCommandHandler(PersonalTelBot):
                 if chat_id in ids:
                     return 'Already logged in'
                 f = open(self.whitelist, 'a')
-                f.write('\n' +str(chat_id))
+                f.write('\n' + str(chat_id))
                 f.close()
                 return 'Right password, delete message from your end'
         f = open(self.whitelist, 'r')
-        ids = list(map(int, f.readlines()))
+        ids = list(map(int,
+                       map(lambda x: x.strip('\n'), f.readlines())))
         f.close()
         print('New command from a logged in account with chat id', chat_id, ids)
         if not chat_id in ids:
@@ -67,14 +67,13 @@ class BashCommandHandler(PersonalTelBot):
             f = open(self.whitelist, 'w')
             f.write('\n'.join(ids))
             f.close()
-            return 'Right password, delete message from your end'
-
+            return 'Logged out'
 
         if command == 'cd':
             try:
                 dir = tokens[1]
                 print(dir[0], 'directory token')
-                tokens[1] = tokens[1].replace('~', '/home/jafar') ## CHange to whatever you need
+                tokens[1] = tokens[1].replace('~', '/home/jafar')  ## CHange to whatever you need
                 cur = os.curdir
                 cur = os.path.join(cur, ' '.join(tokens[1:]))
                 os.chdir(cur)
@@ -101,41 +100,37 @@ class BashCommandHandler(PersonalTelBot):
             self.sendMessage(chat_id, f'On it wait, sending file with path:  {path}')
             if not os.path.isfile(path):
                 return 'No file in current directory'
-            functions[tokens[1]](chat_id, open(path,'rb'), caption=' '.join(tokens[3:]))
+            functions[tokens[1]](chat_id, open(path, 'rb'), caption=' '.join(tokens[3:]))
             return 'Success'
+
         def encode(out):
             if out is None:
                 return ''
             return '\n'.join([str(outi, encoding='utf-8') for outi in out])
+
         print('Running command')
         bash_command = ' '.join(tokens)
         if tokens[0] == 'sudo':
             bash_command = f'echo {self.password} | ' + bash_command
 
-        p = subprocess.Popen(bash_command, shell=True,stdout=subprocess.PIPE,stdin=subprocess.PIPE)
+        p = subprocess.Popen(bash_command, shell=True, stdout=subprocess.PIPE, stdin=subprocess.PIPE)
         # print(list(p.stdout))
         # print(p.stderr)
         print('Ended command')
-        return 'R:\n' +encode(p.stdout) + '\n' + encode(p.stderr)
+        return 'R:\n' + encode(p.stdout) + '\n' + encode(p.stderr)
 
     def process_command(self, s, chat_id):
         try:
             stdout = self.run_command(s, chat_id)
-            stdout = stdout.replace('\n\n','\n')
+            stdout = stdout.replace('\n\n', '\n')
             for line in stdout.split('\n'):
                 if len(line) == 0:
                     continue
                 self.sendMessage(chat_id, line)
         except Exception:
             print(traceback.format_exc())
-            self.sendMessage(chat_id,'Command parsing error')
+            self.sendMessage(chat_id, 'Command parsing error')
 
-# bash_handler = BashCommandHandler(
-#     api_token='HERE API TOKEN from @botfather @BotFather',
-#     password='Your device password',
-#     whitelist='path to whitelisted chat_id telegram accounts, you dont need to create, it will be created '
-#               'on first run and then will be appended on every login'
-# )
 
 bash_handler = BashCommandHandler(
     api_token='1470811324:AAGwv7*******yeikcHqlqbbI',
@@ -170,7 +165,7 @@ if __name__ == '__main__':
             if len(messages) > 0:
                 wait_time = 2
             else:
-                wait_time = min(wait_time+0.5, 120)
+                wait_time = min(wait_time + 0.5, 120)
             for message_ in messages:
                 if 'message' not in message_:
                     continue
