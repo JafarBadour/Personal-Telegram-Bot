@@ -8,7 +8,7 @@ Steps to run
 * Create new telegram bot using @BotFather from telegram. The @BotFather will send you an
 API token then you can insert in the code, check below
   
-* Insert your password and a link to two files ```last_date``` and ```whitelist```
+* Insert your password and paths to two files ```last_date``` and ```whitelist```
     
   ```lastdate``` contains the date of the last message processed by the bot
 
@@ -20,6 +20,7 @@ bash_handler = BashCommandHandler(
     whitelist='/home/jafar/PycharmProjects/Personal-Telegram-Bot/whitelist' # path of the file where you store that 
     # whitelisted accounts
 )
+last_date_path = '/home/jafar/PycharmProjects/Personal-Telegram-Bot/last_date'
 ```
 
 ## Using the bot
