@@ -41,6 +41,6 @@ bash_handler = BashCommandHandler(
 
 * Any other command is possible here is an animated gif for the possibility
 
-![Demo](https://github.com/JafarBadour/Personal-Telegram-Bot/blob/master/animated%20gif.gif)
+![Demo](https://github.com/JafarBadour/Personal-Telegram-Bot/blob/master/animated.gif)
 
 
