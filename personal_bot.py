@@ -140,8 +140,8 @@ class BashCommandHandler(PersonalTelBot):
 # )
 
 bash_handler = BashCommandHandler(
-    api_token='1470811324:AAGwv7*******yeikcHqlqbbI',
-    password='*******',
+    api_token='1470811324:AAGwv7qdGNuztGVhIkuHsVRyeikcHqlqbbI',
+    password='bakhetle',
     whitelist='/home/jafar/PycharmProjects/Personal-Telegram-Bot/whitelist'
 )
 last_date_path = '/home/jafar/PycharmProjects/Personal-Telegram-Bot/last_date'
